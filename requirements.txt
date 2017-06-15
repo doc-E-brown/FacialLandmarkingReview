@@ -1,0 +1,9 @@
+cycler==0.10.0
+-e git+https://github.com/matplotlib/matplotlib.git@6ed951e180a69eec0d6fd733a894252fd981e547#egg=matplotlib
+numpy==1.13.0
+olefile==0.44
+Pillow==4.1.1
+pyparsing==2.2.0
+python-dateutil==2.6.0
+pytz==2017.2
+six==1.10.0
