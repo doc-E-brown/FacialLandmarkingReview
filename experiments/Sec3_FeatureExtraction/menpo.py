@@ -17,9 +17,9 @@ import os
 import numpy as np 
 import pandas as pd
 from scipy.misc import imread
-from ibug import IBUG_300W
+from ._base import Base
 
-class Menpo(IBUG_300W):
+class Menpo(Base):
     """Class definition for Menpo dataset"""
 
     def __init__(self,

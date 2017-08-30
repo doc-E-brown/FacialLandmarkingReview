@@ -15,13 +15,13 @@ BioID face detection
 # Imports
 import os
 import numpy as np 
-from ibug import IBUG_300W
+from ._base import Base
 
-class BioId(IBUG_300W):
-    """Class definition for HELEN dataset"""
+class BioId(Base):
+    """Class definition for BioId dataset"""
 
     def __init__(self,
-        data_folder,
+        data_folder='/home/ben/datasets/BioID',
         pts_ext='.pts',
         photo_ext='.pgm',
         results_file='bioid_default.csv',

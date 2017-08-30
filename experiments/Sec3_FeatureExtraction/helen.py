@@ -15,10 +15,10 @@ Extract Faces from the HELEN dataset
 # Imports
 import os
 import numpy as np 
-from ibug import IBUG_300W
+from ._base import Base
 
 
-class HELEN(IBUG_300W):
+class HELEN(Base):
     """Class definition for HELEN dataset"""
 
     def __init__(self,

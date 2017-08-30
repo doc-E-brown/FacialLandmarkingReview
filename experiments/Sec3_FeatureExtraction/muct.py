@@ -16,9 +16,9 @@ MUCT face detection
 import os
 import numpy as np 
 import pandas as pd
-from ibug import IBUG_300W
+from ._base import Base
 
-class MUCT(IBUG_300W):
+class MUCT(Base):
     """Class definition for MUCT dataset"""
 
     def __init__(self,
@@ -71,11 +71,16 @@ class MUCT(IBUG_300W):
         basename = os.path.basename(filename)
         basename = os.path.splitext(basename)[0]
 
+
         data = self.coords[self.coords.name == basename]
         del data['name']
 
         data = data.values.reshape((-1, 2))
         data = np.asarray(data, dtype='int')
+
+        # Some images do not have all coordinates, so remove those from 
+        # array
+        data = np.delete(data, np.where(data ==0)[0], axis=0)
 
         return data
 
@@ -83,31 +88,36 @@ class MUCT(IBUG_300W):
 if __name__ == "__main__":
 
     results = []
-    detector = MUCT('/home/ben/datasets/muct', write_photos=True)
+    detector = MUCT('/home/ben/datasets/muct')
     bboxes = detector.get_bounding_boxes()
-    detector.store_bounding_boxes(bboxes)
+    detector.store_bounding_boxes(bboxes, bbox_file='muct.pts')
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
-    if False:
-        detector = MUCT('/home/ben/datasets/muct',
-            cascade="haarcascade_frontalface_alt.xml",
-            results_file="muct_alt.csv")
-        result = detector.detect_faces(bboxes)
-        results.append((detector.cascade, result))
+    detector = MUCT('/home/ben/datasets/muct',
+        cascade="haarcascade_frontalface_alt.xml",
+        results_file="muct_alt.csv")
+    result = detector.detect_faces(bboxes)
+    results.append((detector.cascade, result))
 
-        detector = MUCT('/home/ben/datasets/muct',
-            cascade="haarcascade_frontalface_alt2.xml",
-            results_file="muct_alt2.csv")
-        result = detector.detect_faces(bboxes)
-        results.append((detector.cascade, result))
+    detector = MUCT('/home/ben/datasets/muct',
+        cascade="haarcascade_frontalface_alt2.xml",
+        results_file="muct_alt2.csv")
+    result = detector.detect_faces(bboxes)
+    results.append((detector.cascade, result))
 
 
-        detector = MUCT('/home/ben/datasets/muct',
-            cascade="haarcascade_profileface.xml",
-            results_file="muct_profile.csv")
-        result = detector.detect_faces(bboxes)
-        results.append((detector.cascade, result))
+    detector = MUCT('/home/ben/datasets/muct',
+        cascade="haarcascade_profileface.xml",
+        results_file="muct_profile.csv")
+    result = detector.detect_faces(bboxes)
+    results.append((detector.cascade, result))
+
+    detector = MUCT('/home/ben/datasets/muct',
+        cascade=None,
+        results_file="muct_hog.csv")
+    result = detector.detect_faces(bboxes)
+    results.append((detector.cascade, result))
 
     for result in results:
         print("%s:%d\t%0.2f\t%d" % (result[0], result[1][0], result[1][1], result[1][2]))

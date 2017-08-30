@@ -69,23 +69,20 @@ def face_detect_viola(cascade=None, image=None):
     return classifier.detectMultiScale(image, 1.1, 3, 0, (0, 0))
 
 
-class IBUG_300W(object):
-    """Class definition for IBUG dataset"""
+class Base(object):
+    """Base face detector class"""
 
     def __init__(self,
         data_folder,
         pts_ext='.pts',
         photo_ext='.png',
-        results_file='ibug_detection.csv',
+        results_file='base_detection.csv',
         write_photos=True,
         cascade='haarcascade_frontalface_default.xml',
         ):
-        """Constructor"""
+        """__init__"""
 
-        self.data_dirs = \
-            [os.path.join(data_folder, folder)
-            for folder in ['01_Indoor', '02_Outdoor']]
-
+        self.data_dirs = [data_folder]
         self.pts_ext = pts_ext 
         self.photo_ext = photo_ext
         self.results_file = results_file
@@ -248,33 +245,4 @@ class IBUG_300W(object):
 
         return False, len(rects)
 
-if __name__ == "__main__":
 
-    results = []
-    detector = IBUG_300W('/home/ben/datasets/ibug/300W', write_photos=True, cascade=None)
-    bboxes = detector.get_bounding_boxes()
-    detector.store_bounding_boxes(bboxes)
-    result = detector.detect_faces(bboxes)
-    results.append((detector.cascade, result))
-
-    if False:
-        detector = IBUG_300W('/home/ben/datasets/ibug/300W',
-            cascade="haarcascade_frontalface_alt.xml",
-            results_file="ibug_alt.csv")
-        result = detector.face_detect_viola(bboxes)
-        results.append((detector.cascade, result))
-
-        detector = IBUG_300W('/home/ben/datasets/ibug/300W',
-            cascade="haarcascade_frontalface_alt2.xml",
-            results_file="ibug_alt2.csv")
-        result = detector.face_detect_viola(bboxes)
-        results.append((detector.cascade, result))
-
-        detector = IBUG_300W('/home/ben/datasets/ibug/300W',
-            cascade="haarcascade_profileface.xml",
-            results_file="ibug_profile.csv")
-        result = detector.face_detect_viola(bboxes)
-        results.append((detector.cascade, result))
-
-    for result in results:
-        print("%s:%d\t%0.2f\t%d" % (result[0], result[1][0], result[1][1], result[1][2]))
