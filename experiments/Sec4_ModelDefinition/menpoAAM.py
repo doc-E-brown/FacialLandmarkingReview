@@ -16,6 +16,7 @@ import os
 import menpo.io as mio
 from aam import AAM 
 from menpofit.aam import HolisticAAM, PatchAAM
+from sklearn.model_selection import train_test_split
 
 
 class MenpoAAM(AAM):
@@ -40,7 +41,7 @@ class MenpoAAM(AAM):
 
         images = []
 
-        for i in mio.import_images(self.filepath, max_images=None, verbose=self.verbose):
+        for i in mio.import_images(self.filepath, max_images=100, verbose=self.verbose):
 
             # Check if profile or frontal selected
             # Frontal has 68 landmarks, profile 39 
@@ -65,7 +66,8 @@ class MenpoAAM(AAM):
 
 if __name__ == "__main__":
 
-    a = MenpoAAM('~/datasets/ibug/menpo_2017_trainset')
+    a = MenpoAAM('/home/bjoh3944/predPap-ben/datasets/menpo_2017_trainset', filename='menpo_aam.txt',
+            profile=False)
     a.load_data()
     a.train_model()
     a.fit_model()

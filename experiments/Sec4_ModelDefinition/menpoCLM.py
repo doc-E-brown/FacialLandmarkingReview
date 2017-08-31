@@ -12,16 +12,16 @@
 """
 
 # Imports
-from helenAAM import HelenAAM 
+from menpoAAM import MenpoAAM 
 from menpofit.clm import CLM, GradientDescentCLMFitter
 
 
-class CLMModel(HelenAAM):
+class MenpoCLM(MenpoAAM):
 
-    def __init__(self, path_to_data, filename='helen_clm.txt', verbose=True):
+    def __init__(self, path_to_data, filename='menpo_clm.txt', verbose=True, profile=False):
         """ init """
 
-        super(CLMModel, self).__init__(path_to_data, filename=filename, verbose=verbose)
+        super(MenpoCLM, self).__init__(path_to_data, filename=filename, verbose=verbose, profile=profile)
         self.model_type = CLM
         self.model_fitter = GradientDescentCLMFitter
 
@@ -39,7 +39,7 @@ class CLMModel(HelenAAM):
 
 if __name__ == "__main__":
 
-    a = HelenAAM('/home/bjoh3944/predPap-ben/datasets/HELEN')
+    a = MenpoCLM('/home/bjoh3944/predPap-ben/datasets/menpo_2017_trainset', filename='menpo_clm.txt', profile=False)
     a.load_data()
     a.train_model()
     a.fit_model()
