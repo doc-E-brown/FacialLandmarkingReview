@@ -85,12 +85,12 @@ class AAM(object):
         self.train_set, self.test_set =\
             train_test_split(images, test_size=test_set_ratio, random_state=42)
 
-    def train_model(self, diagonal=None, max_shape_components=None, max_appearance_components=None, scales=(0.5, 1)):
+    def train_model(self, diagonal=None, batch_size=128, max_shape_components=None, max_appearance_components=None, scales=(0.5, 1)):
         """ Train the model """
 
         self.model = self.model_type(self.train_set,
             diagonal=diagonal,
-            batch_size=128,
+            batch_size=batch_size,
             max_shape_components=max_shape_components,
             max_appearance_components=max_appearance_components,
             scales=scales,

@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 # S.D.G
 
-"""Constrained Local Model
-
+"""CLM test for MUCT
 
 
 :author: Ben Johnston
@@ -12,20 +11,19 @@
 """
 
 # Imports
-from helenAAM import HelenAAM 
+from muctAAM import MuctAAM
 from menpofit.clm import CLM, GradientDescentCLMFitter
 
+class MuctCLM(MuctAAM):
 
-class CLMModel(HelenAAM):
-
-    def __init__(self, path_to_data, filename='helen_clm.txt', verbose=True):
+    def __init__(self, path_to_data, filename='muct_clm.txt', verbose=True):
         """ init """
 
-        super(CLMModel, self).__init__(path_to_data, filename=filename, verbose=verbose)
+        super(MuctCLM, self).__init__(path_to_data, filename=filename, verbose=verbose)
         self.model_type = CLM
         self.model_fitter = GradientDescentCLMFitter
-
-    def train_model(self, batch_size=128, scales=(0.5, 1)):
+        
+    def train_model(self,batch_size=50, scales=(0.5, 1)):
         """ train model """
 
         self.model = self.model_type(
@@ -39,9 +37,9 @@ class CLMModel(HelenAAM):
 
 if __name__ == "__main__":
 
-    a = CLMModel('~/datasets/HELEN')
+    a = MuctCLM('~/datasets/muct/muct-images/')
     a.load_data()
-    a.train_model()
+    a.train_model(batch_size=256)
     a.fit_model()
     a.predict_test_set()
     a.generate_cdf()
