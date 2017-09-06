@@ -25,13 +25,14 @@ class MenpoCLM(MenpoAAM):
         self.model_type = CLM
         self.model_fitter = GradientDescentCLMFitter
 
-    def train_model(self, scales=(0.5, 1)):
+    def train_model(self, batch_size=None, scales=(0.5, 1)):
         """ train model """
 
         self.model = self.model_type(
             self.train_set,
             scales=scales,
-            batch_size=50,
+            patch_shape=(10, 10),
+            batch_size=batch_size,
             verbose=self.verbose)
 
         if self.verbose:
@@ -39,9 +40,10 @@ class MenpoCLM(MenpoAAM):
 
 if __name__ == "__main__":
 
+    # batch size 256
     a = MenpoCLM('/home/bjoh3944/predPap-ben/datasets/menpo_2017_trainset', filename='menpo_clm.txt', profile=False)
-    a.load_data()
-    a.train_model()
+    a.load_data(max_images=200)
+    a.train_model(batch_size=128)
     a.fit_model()
     a.predict_test_set()
     a.generate_cdf()

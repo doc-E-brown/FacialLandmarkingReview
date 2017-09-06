@@ -58,12 +58,3 @@ class HelenAAM(AAM):
 
         test_path = os.path.join(self.filepath, 'testset')
         self.test_set = self._crop_grayscale_images(test_path, crop_percentage)
-
-if __name__ == "__main__":
-
-    a = HelenAAM('~/datasets/HELEN', PatchAAM, 'helen_patch.txt')
-    a.load_data()
-    a.train_model(diagonal=200, max_shape_components=None, max_appearance_components=None)
-    a.fit_model()
-    a.predict_test_set()
-    a.generate_cdf()

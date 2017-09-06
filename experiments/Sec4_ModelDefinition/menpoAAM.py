@@ -29,7 +29,7 @@ class MenpoAAM(AAM):
             path_to_data, model_type, filename, verbose)
         self.profile=profile
 
-    def load_data(self, crop_percentage=0.1, test_set_ratio=0.3):
+    def load_data(self, crop_percentage=0.1, max_images=None, test_set_ratio=0.3):
         """ Load the images and landmarks in an menpo.io
         format and crop the images using the specified
         landmarks as a guide
@@ -41,7 +41,9 @@ class MenpoAAM(AAM):
 
         images = []
 
-        for i in mio.import_images(self.filepath, max_images=None, verbose=self.verbose):
+        for i in mio.import_images(self.filepath, max_images=max_images, verbose=self.verbose):
+            with open('troubleshoot.txt', 'a') as f:
+                f.write("%s\n" % i)
 
             # Check if profile or frontal selected
             # Frontal has 68 landmarks, profile 39 
@@ -66,9 +68,24 @@ class MenpoAAM(AAM):
 
 if __name__ == "__main__":
 
-    a = MenpoAAM('~/datasets/ibug/menpo_2017_trainset', filename='menpo_aam.txt',
+    from functools import partial
+    import aam
+    # Profile
+    #a = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset', filename='menpo_aam_profile.txt',
+    #        profile=True)
+    #aam.compute_errors = partial(aam.compute_errors, left=19, right=28)
+
+    # Frontal
+    #a = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset', filename='menpo_aam_patch.txt',
+    #        profile=False, model_type=PatchAAM)
+    a = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset', filename='menpo_aam2.txt',
             profile=False)
     a.load_data()
+
+    # Profile 
+    a.train_model(batch_size=None)
+
+    # Frontal
     a.train_model()
     a.fit_model()
     a.predict_test_set()
