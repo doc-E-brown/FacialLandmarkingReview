@@ -1,17 +1,17 @@
 -- Job Summary -------------------------------------------------------
-Job Id: 1604258.pbsserver for user bjoh3944 in queue small
+Job Id: 1605128.pbsserver for user bjoh3944 in queue large
 Job Name: menpoprhol
 Project: RDS-FEI-predPap-RW
 Exit Status: 0
-Job run as chunks (hpc202:ncpus=8:mem=41943040kb)
-Walltime requested:   20:00:00 :      Walltime used:   00:28:56
-                               :   walltime percent:       2.4%
+Job run as chunks (hpc123:ncpus=8:mem=8388608kb)
+Walltime requested:   02:00:00 :      Walltime used:   00:39:26
+                               :   walltime percent:      32.9%
 -- Nodes Summary -----------------------------------------------------
--- node hpc202 summary
-    Cpus requested:          8 :          Cpus Used:       4.76
-          Cpu Time:   02:17:50 :        Cpu percent:      59.5%
-     Mem requested:     40.0GB :           Mem used:      5.4GB
-                               :        Mem percent:      13.4%
+-- node hpc123 summary
+    Cpus requested:          8 :          Cpus Used:       3.13
+          Cpu Time:   02:03:17 :        Cpu percent:      39.1%
+     Mem requested:      8.0GB :           Mem used:      5.4GB
+                               :        Mem percent:      67.3%
 
 -- WARNINGS ----------------------------------------------------------
 
@@ -23,7 +23,7 @@ Walltime requested:   20:00:00 :      Walltime used:   00:28:56
 **   Did the application run more quickly than it should have? Is this analysis
 **   the one you intended to run?
 ** 
-** Low CPU utilisation on hpc202.  While this may be normal, it may help to check
+** Low CPU utilisation on hpc123.  While this may be normal, it may help to check
 ** the following:
 **   Did the job parameters specify too many cores?  Requesting fewer cores
 **   could help your job to start sooner.
@@ -32,7 +32,7 @@ Walltime requested:   20:00:00 :      Walltime used:   00:28:56
 **   Did the application use fewer cores than it should have? Is this analysis
 **   the one you intended to run?
 **
-** Low Memory utilisation on hpc202. While this may be normal, it may help to check
+** Low Memory utilisation on hpc123. While this may be normal, it may help to check
 ** the following:
 **   Did the job parameters specify too much memory? Requesting less RAM could
 **   help your job to start sooner.
