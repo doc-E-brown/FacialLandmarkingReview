@@ -3,8 +3,7 @@
 # S.D.G
 
 """
-HELEN holistic AAM 
-
+Menpo Holistic active appearance model
 
 
 :author: Ben Johnston
@@ -12,12 +11,15 @@ HELEN holistic AAM
 
 """
 
-# Imports
-from helenAAM import HelenAAM
+from menpoAAM import MenpoAAM
 
-model = HelenAAM('~/predPap-ben/datasets/HELEN', basename='helen_aam_hol')
+model = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset',
+    filename='menpo_aam_front_hol')
 model.load_data()
+
+# Frontal
 model.train_model()
 model.fit_model()
 model.predict_test_set()
 model.generate_cdf()
+

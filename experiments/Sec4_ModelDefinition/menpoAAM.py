@@ -29,7 +29,7 @@ class MenpoAAM(AAM):
             path_to_data, model_type, filename, verbose)
         self.profile=profile
 
-    def load_data(self, crop_percentage=0.1, max_images=None, test_set_ratio=0.3):
+    def load_data(self, crop_percentage=0.1, test_set_ratio=0.3, max_images=None):
         """ Load the images and landmarks in an menpo.io
         format and crop the images using the specified
         landmarks as a guide

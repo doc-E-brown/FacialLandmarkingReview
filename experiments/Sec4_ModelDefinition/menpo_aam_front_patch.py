@@ -3,10 +3,7 @@
 # S.D.G
 
 """
-300W dataset holistic AAM
-
-
-
+Menpo Patch active appearance model
 
 
 :author: Ben Johnston
@@ -15,14 +12,16 @@
 """
 
 # Imports
-from aam import AAM
+from menpoAAM import MenpoAAM
 from menpofit.aam import PatchAAM
 
-model = AAM('/home/bjoh3944/predPap-ben/datasets/ibug/300W/combined',
-            model_type=PatchAAM,
-            basename='300W_patch')
+model = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset',
+    filename='menpo_aam_front_patch',
+    model_type=PatchAAM)
 model.load_data()
-model.train_model(batch_size=None)
+
+# Frontal
+model.train_model()
 model.fit_model()
 model.predict_test_set()
 model.generate_cdf()

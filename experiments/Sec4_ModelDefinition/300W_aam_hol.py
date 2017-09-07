@@ -18,7 +18,7 @@
 from aam import AAM
 
 model = AAM('/home/bjoh3944/predPap-ben/datasets/ibug/300W/combined',
-            filename='300W_aam_hol.txt')
+            basename='300W_aam_hol')
 model.load_data()
 model.train_model(batch_size=None)
 model.fit_model()

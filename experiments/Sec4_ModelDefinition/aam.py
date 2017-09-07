@@ -28,7 +28,7 @@ def euclidean_2d(x, y):
     diff = np.sum(diff, axis=1)
     return np.sqrt(diff)
 
-def compute_errors(predictions, left=36, right=45):
+def compute_errors(predictions, pt1=36, pt2=45):
     """ Compute the error given an array of predictions and the
     corresponding ground truth (stored with predictions)"""
 
@@ -40,7 +40,7 @@ def compute_errors(predictions, left=36, right=45):
         pred = pred.final_shape.points
 
         # Landmarks 37 and 46 are the outer corners of the eyes
-        inter_ocular_dist = norm(truth[left], truth[right])
+        inter_ocular_dist = norm(truth[pt1], truth[pt2])
 
         err = np.sum(euclidean_2d(pred, truth))
         err /= (pred.shape[0] * inter_ocular_dist)
@@ -53,10 +53,10 @@ def compute_errors(predictions, left=36, right=45):
 class AAM(object):
     """ PDM class """
 
-    def __init__(self, path_to_data, model_type=HolisticAAM, filename='aam.txt', verbose=True):
+    def __init__(self, path_to_data, model_type=HolisticAAM, basename='aam', verbose=True):
         """ """
         self.filepath = path_to_data
-        self.filename = filename
+        self.basename = basename
         self.verbose = verbose
         self.model_type = model_type 
         self.model_fitter = LucasKanadeAAMFitter
@@ -115,7 +115,6 @@ class AAM(object):
         fit_results = []
         image_paths = []
         predicted_values = []
-        basename, ext = os.path.splitext(self.filename)
 
         for idx, i in enumerate(self.test_set):
             gt_s = i.landmarks['PTS'].lms
@@ -133,10 +132,10 @@ class AAM(object):
         self.predictions = fit_results
 
         # Store predictions
-        np.savetxt("%s_predictions%s" % (basename, ext),
+        np.save("%s_predictions" % self.basename,
                    np.array(predicted_values),
-                   fmt="%s")
-        with open("%s_testset%s" % (basename, ext), 'w') as f:
+                   )
+        with open("%s_testset.txt" % self.basename, 'w') as f:
             f.write("\n".join(image_paths))
 
     def generate_cdf(self):
@@ -145,4 +144,4 @@ class AAM(object):
         errs = compute_errors(self.predictions)
         errs = np.sort(errs)
         self.cumsum = np.stack((errs, np.cumsum(errs)))
-        np.savetxt(self.filename, self.cumsum)
+        np.save(self.basename, self.cumsum)

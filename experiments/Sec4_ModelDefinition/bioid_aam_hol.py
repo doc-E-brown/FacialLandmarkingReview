@@ -3,9 +3,7 @@
 # S.D.G
 
 """
-300W dataset holistic AAM
-
-
+BioID AAM holistic
 
 
 
@@ -15,12 +13,13 @@
 """
 
 # Imports
+import aam
 from aam import AAM
-from menpofit.aam import PatchAAM
+from functools import partial
 
-model = AAM('/home/bjoh3944/predPap-ben/datasets/ibug/300W/combined',
-            model_type=PatchAAM,
-            basename='300W_patch')
+# Change the compute errors function to use BioID eye coords
+aam.compute_errors = partial(aam.compute_errors, pt1=9, pt2=12)
+model = AAM('~/predPap-ben/datasets/BioID', basename='bioid_aam_hol')
 model.load_data()
 model.train_model(batch_size=None)
 model.fit_model()

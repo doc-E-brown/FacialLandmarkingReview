@@ -1,0 +1,3 @@
+/home/bjoh3944/predPap-ben/datasets/BioID/BioID_0008.pgm
+/home/bjoh3944/predPap-ben/datasets/BioID/BioID_0001.pgm
+/home/bjoh3944/predPap-ben/datasets/BioID/BioID_0005.pgm

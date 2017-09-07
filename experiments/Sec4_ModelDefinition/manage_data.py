@@ -13,7 +13,7 @@ for filename in os.listdir(os.getcwd()):
 import os
 import pandas as pd
 import numpy as np
-MUCT_FOLDER = '/home/ben/datasets/muct/'
+MUCT_FOLDER = '/home/bjoh3944/predPap-ben/datasets/muct/'
 MUCT_IMAGES = os.path.join(MUCT_FOLDER, 'muct-images')
 VERSION = 1
 df = pd.read_csv(os.path.join(MUCT_FOLDER, 'muct-landmarks/muct76-opencv.csv'))

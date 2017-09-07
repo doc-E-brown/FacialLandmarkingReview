@@ -16,10 +16,9 @@ HELEN patch AAM
 from helenAAM import HelenAAM
 from menpofit.aam import PatchAAM
 
-model = HelenAAM('~/datasets/HELEN', PatchAAM, 'helen_patch.txt')
+model = HelenAAM('~/predPap-ben/datasets/HELEN', model_type=PatchAAM, basename='helen_patch')
 model.load_data()
 model.train_model()
-#model.train_model(diagonal=200, max_shape_components=None, max_appearance_components=None)
 model.fit_model()
 model.predict_test_set()
 model.generate_cdf()
