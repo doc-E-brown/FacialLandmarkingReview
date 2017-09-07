@@ -42,8 +42,6 @@ class MenpoAAM(AAM):
         images = []
 
         for i in mio.import_images(self.filepath, max_images=max_images, verbose=self.verbose):
-            with open('troubleshoot.txt', 'a') as f:
-                f.write("%s\n" % i)
 
             # Check if profile or frontal selected
             # Frontal has 68 landmarks, profile 39 
