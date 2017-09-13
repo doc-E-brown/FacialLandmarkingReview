@@ -23,7 +23,7 @@ model = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset',
 model.load_data()
 
 # Frontal
-model.train_model()
+model.train_model(batch_size=128)
 model.fit_model()
 model.predict_test_set()
 model.generate_cdf()
