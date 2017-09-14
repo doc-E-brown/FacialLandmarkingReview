@@ -1,0 +1,45 @@
+-- Job Summary -------------------------------------------------------
+Job Id: 1621136.pbsserver for user bjoh3944 in queue small
+Job Name: 300Wahi
+Project: RDS-FEI-predPap-RW
+Exit Status: 0
+Job run as chunks (hpc016:ncpus=8:mem=8388608kb)
+Walltime requested:   02:00:00 :      Walltime used:   00:06:14
+                               :   walltime percent:       5.2%
+-- Nodes Summary -----------------------------------------------------
+-- node hpc016 summary
+    Cpus requested:          8 :          Cpus Used:       5.53
+          Cpu Time:   00:34:29 :        Cpu percent:      69.2%
+     Mem requested:      8.0GB :           Mem used:      2.6GB
+                               :        Mem percent:      32.2%
+
+-- WARNINGS ----------------------------------------------------------
+
+** Low Walltime utilisation.  While this may be normal, it may help to check the
+** following:
+**   Did the job parameters specify more walltime than necessary? Requesting
+**   lower walltime could help your job to start sooner.
+**   Did your analysis complete as expected or did it crash before completing?
+**   Did the application run more quickly than it should have? Is this analysis
+**   the one you intended to run?
+** 
+** Low CPU utilisation on hpc016.  While this may be normal, it may help to check
+** the following:
+**   Did the job parameters specify too many cores?  Requesting fewer cores
+**   could help your job to start sooner.
+**   Did you use MPI and was the work distributed correctly? Correcting this
+**   could make your job to run faster without needing any more cores.
+**   Did the application use fewer cores than it should have? Is this analysis
+**   the one you intended to run?
+**
+** Low Memory utilisation on hpc016. While this may be normal, it may help to check
+** the following:
+**   Did the job parameters specify too much memory? Requesting less RAM could
+**   help your job to start sooner.
+**   Did you use MPI and was the work distributed correctly? Correcting this
+**   could allow your job to run using less RAM in each chunk.
+**   Did your analysis complete as expected or did it crash before completing?
+**   Did the application use less RAM than it should have? Is this analysis the
+**   one you intended to run?
+**
+-- End of Job Summary ------------------------------------------------
