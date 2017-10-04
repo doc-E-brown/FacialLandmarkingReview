@@ -15,13 +15,15 @@ BioID face detection
 # Imports
 import os
 import numpy as np 
-from ._base import Base
+from _base import Base
+
+DATA_FOLDER = os.getenv("BIOID_DATA", '~/datasets/BioID')
 
 class BioId(Base):
     """Class definition for BioId dataset"""
 
     def __init__(self,
-        data_folder='/home/ben/datasets/BioID',
+        data_folder=DATA_FOLDER,
         pts_ext='.pts',
         photo_ext='.pgm',
         results_file='bioid_default.csv',
@@ -71,35 +73,29 @@ class BioId(Base):
 
         return data
 
-
-
 if __name__ == "__main__":
 
     results = []
-    detector = BioId('/home/ben/datasets/BioID',
-        write_photos=True)
+    detector = BioId()
     bboxes = detector.get_bounding_boxes()
-#    detector.store_bounding_boxes(bboxes)
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
-    detector = BioId('/home/ben/datasets/BioID',
-        cascade="haarcascade_frontalface_alt.xml",
+    detector = BioId(cascade="haarcascade_frontalface_alt.xml",
         results_file="bioid_alt.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
-    detector = BioId('/home/ben/datasets/BioID',
-        cascade="haarcascade_frontalface_alt2.xml",
+    detector = BioId(cascade="haarcascade_frontalface_alt2.xml",
         results_file="bioid_alt2.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
-    detector = BioId('/home/ben/datasets/BioID',
-        cascade="haarcascade_profileface.xml",
+    detector = BioId(cascade="haarcascade_profileface.xml",
         results_file="bioid_profile.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     for result in results:
-        print("%s:%d\t%0.2f\t%d" % (result[0], result[1][0], result[1][1], result[1][2]))
+        print("{:<40}:{:^6}{:^6.2f}{:^f}".format(result[0], 
+            result[1][0], result[1][1], result[1][2]))

@@ -150,7 +150,6 @@ class Base(object):
             pts = self.load_pts("%s%s" % (basename, self.pts_ext)) 
             bbox = self.extract_bbox(pts)
             basename = os.path.basename(basename)
-            #line = [basename] + bbox
             bboxes[basename] = bbox
 
         return bboxes
@@ -244,5 +243,3 @@ class Base(object):
                 return True, len(rects) - 1
 
         return False, len(rects)
-
-
