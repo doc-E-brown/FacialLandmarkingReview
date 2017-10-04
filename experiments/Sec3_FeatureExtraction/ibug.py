@@ -14,7 +14,7 @@
 
 # Imports
 import os
-from ._base import Base
+from _base import Base
 
 class ibug(Base):
     """ibug 300W face detector class"""
@@ -37,9 +37,11 @@ class ibug(Base):
             for folder in ['01_Indoor', '02_Outdoor']]
 
 if __name__ == "__main__":
+    import sys
+    import pdb;pdb.set_trace()
 
     results = []
-    detector = ibug('/home/ben/datasets/ibug/300W', write_photos=True, cascade=None)
+    detector = ibug('/home/ben/datasets/ibug/300W', write_photos=True)
     bboxes = detector.get_bounding_boxes()
     detector.store_bounding_boxes(bboxes)
     result = detector.detect_faces(bboxes)

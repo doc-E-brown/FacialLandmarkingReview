@@ -17,7 +17,7 @@ import os
 import numpy as np 
 import pandas as pd
 from scipy.misc import imread
-from ._base import Base
+from _base import Base
 
 class Menpo(Base):
     """Class definition for Menpo dataset"""
@@ -73,7 +73,7 @@ class Menpo(Base):
 if __name__ == "__main__":
 
     results = []
-    detector = Menpo('/home/ben/datasets/ibug/menpo_2017_trainset', write_photos=True, profile_photo=True, cascade=None)
+    detector = Menpo('/home/ben/datasets/ibug/menpo_2017_trainset', write_photos=True, profile_photo=False, cascade=None)
     bboxes = detector.get_bounding_boxes()
     detector.store_bounding_boxes(bboxes)
     result = detector.detect_faces(bboxes)
