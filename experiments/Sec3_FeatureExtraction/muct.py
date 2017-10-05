@@ -16,13 +16,15 @@ MUCT face detection
 import os
 import numpy as np 
 import pandas as pd
-from ._base import Base
+from _base import Base
+
+MUCT_DATA_FOLDER = os.getenv('MUCT_DATA', '~/datasets/MUCT')
 
 class MUCT(Base):
     """Class definition for MUCT dataset"""
 
     def __init__(self,
-        data_folder,
+        data_folder=MUCT_DATA_FOLDER,
         pts_ext='.csv',
         photo_ext='.jpg',
         results_file='muct_detection.csv',
@@ -88,36 +90,40 @@ class MUCT(Base):
 if __name__ == "__main__":
 
     results = []
-    detector = MUCT('/home/ben/datasets/muct')
+    detector = MUCT()
     bboxes = detector.get_bounding_boxes()
     detector.store_bounding_boxes(bboxes, bbox_file='muct.pts')
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
-    detector = MUCT('/home/ben/datasets/muct',
+    detector = MUCT(
         cascade="haarcascade_frontalface_alt.xml",
         results_file="muct_alt.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
-    detector = MUCT('/home/ben/datasets/muct',
+    detector = MUCT(,
         cascade="haarcascade_frontalface_alt2.xml",
         results_file="muct_alt2.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
 
-    detector = MUCT('/home/ben/datasets/muct',
+    detector = MUCT(,
         cascade="haarcascade_profileface.xml",
         results_file="muct_profile.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
-    detector = MUCT('/home/ben/datasets/muct',
+    detector = MUCT(,
         cascade=None,
         results_file="muct_hog.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
+    print("{:<40}{:^10}{:^40}{:^10}".format(
+        'Face Detector', '# images',
+        'Detection rate (%)', 'False pos'))
     for result in results:
-        print("%s:%d\t%0.2f\t%d" % (result[0], result[1][0], result[1][1], result[1][2]))
+        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0], 
+            result[1][0], result[1][1], result[1][2]))

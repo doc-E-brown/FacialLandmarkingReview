@@ -19,8 +19,6 @@ from _base import Base
 
 DATA_FOLDER = os.getenv("BIOID_DATA", '~/datasets/BioID')
 
-DATA_FOLDER = os.getenv("BIOID_DATA", '~/datasets/BioID')
-
 class BioId(Base):
     """Class definition for BioId dataset"""
 
@@ -105,7 +103,7 @@ if __name__ == "__main__":
 
     print("{:<40}{:^10}{:^40}{:^10}".format(
         'Face Detector', '# images',
-        'Detection rate (%)', 'False pos')
+        'Detection rate (%)', 'False pos'))
     for result in results:
         print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0], 
             result[1][0], result[1][1], result[1][2]))
