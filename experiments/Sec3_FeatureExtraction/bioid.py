@@ -19,6 +19,8 @@ from _base import Base
 
 DATA_FOLDER = os.getenv("BIOID_DATA", '~/datasets/BioID')
 
+DATA_FOLDER = os.getenv("BIOID_DATA", '~/datasets/BioID')
+
 class BioId(Base):
     """Class definition for BioId dataset"""
 
