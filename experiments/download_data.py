@@ -21,15 +21,17 @@ These datasets will need to be downloaded manually.
 # Imports
 import os
 import shutil
+import tarfile
 from urllib import urlretrieve
 from zipfile import ZipFile
 
 BIOID_DATA_FOLDER = os.getenv('BIOID_DATA', '~/datasets/BioID')
+MUCT_DATA_FOLDER = os.getenv('MUCT_DATA', '~/datasets/MUCT')
 
 def getBioID():
     """ Function to download and prepare the BioID data set """
-    print("Get BioID dataset")
-    print("The BioID dataset is provided by the BioID company")
+    print("Get the BioID dataset")
+    print("The BioID dataset is published by the BioID company")
     print("https://www.bioid.com/About/BioID-Face-Database")
     print("=" * 30)
 
@@ -61,5 +63,45 @@ def getBioID():
     with ZipFile(filename, 'r') as f:
         f.extractall(BIOID_DATA_FOLDER)
 
+def getMUCT():
+    """ Download the muct dataset """
+
+    print("Get the MUCT dataset")
+    print("The MUCT dataset is published by Stephen Milborrow")
+    print("https://github.com/StephenMilborrow/muct")
+    print("=" * 30)
+
+    # Create BIOID_DATA_FOLDER if it doesnt exist
+    if not os.path.exists(MUCT_DATA_FOLDER):
+        os.mkdir(MUCT_DATA_FOLDER)
+
+    # Get the images data
+    for alpha in ['a', 'b', 'c', 'd', 'e']:
+        print("Downloading images data: {}".format(alpha))
+        filename, headers = urlretrieve(
+            'https://github.com/StephenMilborrow/muct/raw/master/muct-{}-jpg-v1.tar.gz'.\
+                format(alpha))
+
+        print("Extracting images: {}".format(alpha))
+        with tarfile.open(filename, 'r|gz') as f:
+            f.extractall(MUCT_DATA_FOLDER)
+
+    # Rename the images folder
+    shutil.move(
+        os.path.join(MUCT_DATA_FOLDER, 'jpg'),
+        os.path.join(MUCT_DATA_FOLDER, 'muct-images'),
+    )
+    
+    # Get the landmarks data
+    print("Downloading landmarks")
+    filename, headers = urlretrieve(
+        'https://github.com/StephenMilborrow/muct/raw/master/muct-landmarks-v1.tar.gz'.\
+            format(alpha))
+
+    print("Extracting landmarks")
+    with tarfile.open(filename, 'r|gz') as f:
+        f.extractall(MUCT_DATA_FOLDER)
+
 if __name__ == "__main__":
-    getBioID()
+    #getBioID()
+    getMUCT()
