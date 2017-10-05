@@ -27,13 +27,16 @@ from zipfile import ZipFile
 
 BIOID_DATA_FOLDER = os.getenv('BIOID_DATA', '~/datasets/BioID')
 MUCT_DATA_FOLDER = os.getenv('MUCT_DATA', '~/datasets/MUCT')
+HELEN_DATA_FOLDER = os.getenv('HELEN_DATA', '~/datasets/HELEN')
+IBUG_DATA_FOLDER = os.getenv('HELEN_DATA', '~/datasets/IBUG/300W')
+MENPO_DATA_FOLDER = os.getenv('HELEN_DATA', '~/datasets/IBUG/menpo_2017_trainset')
 
 def getBioID():
     """ Function to download and prepare the BioID data set """
     print("Get the BioID dataset")
     print("The BioID dataset is published by the BioID company")
     print("https://www.bioid.com/About/BioID-Face-Database")
-    print("=" * 30)
+    print("=" * 60)
 
     # Create BIOID_DATA_FOLDER if it doesnt exist
     if not os.path.exists(BIOID_DATA_FOLDER):
@@ -69,7 +72,7 @@ def getMUCT():
     print("Get the MUCT dataset")
     print("The MUCT dataset is published by Stephen Milborrow")
     print("https://github.com/StephenMilborrow/muct")
-    print("=" * 30)
+    print("=" * 60)
 
     # Create MUCT_DATA_FOLDER if it doesnt exist
     if not os.path.exists(MUCT_DATA_FOLDER):
@@ -102,6 +105,43 @@ def getMUCT():
     with tarfile.open(filename, 'r|gz') as f:
         f.extractall(MUCT_DATA_FOLDER)
 
+def getHELEN():
+    """ Download the HELEN dataset"""
+
+    print("Get the ibug annotated HELEN dataset")
+    print("The original HELEN dataset is published by Vuong Le")
+    print("http://www.ifp.illinois.edu/~vuongle2/helen/")
+    print("=" * 60)
+    print("Due to licensing constraints you will need to download the ibug annotated "\
+    "HELEN dataset manually from:\n"\
+    "https://ibug.doc.ic.ac.uk/download/annotations/helen.zip/\n"\
+    "and extract the zip file into\n"\
+    "{}".format(HELEN_DATA_FOLDER))
+
+    # Create MUCT_DATA_FOLDER if it doesnt exist
+    if not os.path.exists(HELEN_DATA_FOLDER):
+        os.mkdir(HELEN_DATA_FOLDER)
+
+def get300W():
+    """ Download the 300W dataset"""
+
+    print("Get the ibug annotated HELEN dataset")
+    print("The original HELEN dataset is published by Vuong Le")
+    print("http://www.ifp.illinois.edu/~vuongle2/helen/")
+    print("=" * 60)
+    print("Due to licensing constraints you will need to download the ibug annotated "\
+    "HELEN dataset manually from:\n"\
+    "https://ibug.doc.ic.ac.uk/download/annotations/helen.zip/\n"\
+    "and extract the zip file into\n"\
+    "{}".format(HELEN_DATA_FOLDER))
+
+    # Create MUCT_DATA_FOLDER if it doesnt exist
+    if not os.path.exists(HELEN_DATA_FOLDER):
+        os.mkdir(HELEN_DATA_FOLDER)
+
+
+
 if __name__ == "__main__":
     #getBioID()
-    getMUCT()
+    #getMUCT()
+    getHELEN()
