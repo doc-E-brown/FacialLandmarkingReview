@@ -13,10 +13,11 @@ HELEN patch AAM
 """
 
 # Imports
+import os
 from helenAAM import HelenAAM
 from menpofit.aam import PatchAAM
 
-model = HelenAAM('~/predPap-ben/datasets/HELEN', model_type=PatchAAM, basename='helen_patch')
+model = HelenAAM(model_type=PatchAAM, basename='helen_patch')
 model.load_data()
 model.train_model()
 model.fit_model()

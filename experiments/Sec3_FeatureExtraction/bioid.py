@@ -17,13 +17,13 @@ import os
 import numpy as np 
 from _base import Base
 
-DATA_FOLDER = os.getenv("BIOID_DATA", '~/datasets/BioID')
+BIOID_DATA_FOLDER = os.getenv("BIOID_DATA", '~/datasets/BioID')
 
 class BioId(Base):
     """Class definition for BioId dataset"""
 
     def __init__(self,
-        data_folder=DATA_FOLDER,
+        data_folder=BIOID_DATA_FOLDER,
         pts_ext='.pts',
         photo_ext='.pgm',
         results_file='bioid_default.csv',

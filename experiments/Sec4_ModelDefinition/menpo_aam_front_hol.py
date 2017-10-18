@@ -13,7 +13,7 @@ Menpo Holistic active appearance model
 
 from menpoAAM import MenpoAAM
 
-model = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset',
+model = MenpoAAM(
     filename='menpo_aam_front_hol')
 model.load_data()
 

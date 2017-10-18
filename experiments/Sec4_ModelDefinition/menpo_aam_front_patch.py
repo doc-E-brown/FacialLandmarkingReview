@@ -15,7 +15,7 @@ Menpo Patch active appearance model
 from menpoAAM import MenpoAAM
 from menpofit.aam import PatchAAM
 
-model = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset',
+model = MenpoAAM(
     filename='menpo_aam_front_patch',
     model_type=PatchAAM)
 model.load_data()

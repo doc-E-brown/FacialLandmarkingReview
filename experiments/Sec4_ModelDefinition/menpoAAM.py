@@ -18,12 +18,13 @@ from aam import AAM
 from menpofit.aam import HolisticAAM, PatchAAM
 from sklearn.model_selection import train_test_split
 
+MENPO_DATA_FOLDER = os.getenv('MENPO_DATA', '~/datasets/ibug/menpo_2017_trainset')
 
 class MenpoAAM(AAM):
     """ Menpo AAM class """
 
 
-    def __init__(self, path_to_data, model_type=HolisticAAM, filename='menpo_aam.txt', verbose=True, profile=False):
+    def __init__(self, path_to_data=MENPO_DATA_FOLDER, model_type=HolisticAAM, filename='menpo_aam.txt', verbose=True, profile=False):
 
         super(MenpoAAM, self).__init__(
             path_to_data, model_type, filename, verbose)

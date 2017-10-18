@@ -15,10 +15,13 @@
 """
 
 # Imports
+import os
 from aam import AAM
 from menpofit.aam import PatchAAM
 
-model = AAM('/home/bjoh3944/predPap-ben/datasets/ibug/300W/combined',
+DATA_FOLDER = os.getenv('IBUG_DATA', '~/datasets/ibug/300W')
+
+model = AAM(os.path.join(DATA_FOLDER, 'combined'),
             model_type=PatchAAM,
             basename='300W_patch')
 model.load_data()

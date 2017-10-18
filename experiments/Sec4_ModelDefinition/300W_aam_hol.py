@@ -15,9 +15,12 @@
 """
 
 # Imports
+import os
 from aam import AAM
 
-model = AAM('/home/bjoh3944/predPap-ben/datasets/ibug/300W/combined',
+DATA_FOLDER = os.getenv('IBUG_DATA', '~/datasets/ibug/300W')
+
+model = AAM(os.path.join(DATA_FOLDER, 'combined'),
             basename='300W_aam_hol')
 model.load_data()
 model.train_model(batch_size=None)

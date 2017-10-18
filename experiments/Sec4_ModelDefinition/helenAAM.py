@@ -17,12 +17,13 @@ import menpo.io as mio
 from aam import AAM 
 from menpofit.aam import HolisticAAM, PatchAAM
 
+HELEN_DATA_FOLDER = os.getenv('HELEN_DATA', '~/datasets/ibug/HELEN')
 
 class HelenAAM(AAM):
     """ Helen AAM class """
 
 
-    def __init__(self, path_to_data, model_type=HolisticAAM, basename='helen_aam', verbose=True):
+    def __init__(self, path_to_data=HELEN_DATA_FOLDER, model_type=HolisticAAM, basename='helen_aam', verbose=True):
 
         super(HelenAAM, self).__init__(
             path_to_data, model_type, basename, verbose)

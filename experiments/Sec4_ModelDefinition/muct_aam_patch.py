@@ -12,10 +12,13 @@
 """
 
 # Imports
+import os
 from muctAAM import MuctAAM
 from menpofit.aam import PatchAAM
 
-model = MuctAAM('/home/bjoh3944/predPap-ben/datasets/muct/muct-images',
+MUCT_DATA_FOLDER = os.getenv('MUCT_DATA', '~/datasets/muct')
+
+model = MuctAAM(os.path.join(MUCT_DATA_FOLDER, 'muct-images'),
     model_type=PatchAAM,
     basename='muct_aam_patch')
 model.load_data()

@@ -3,7 +3,7 @@
 # S.D.G
 
 """
-menpo face detection
+menpo front face detection
 
 
 
@@ -19,7 +19,7 @@ import pandas as pd
 from scipy.misc import imread
 from _base import Base
 
-MENPO_DATA_FOLDER = os.getenv('MENPO_DATA', '~/datasets/IBUG/menpo_2017_trainset')
+MENPO_DATA_FOLDER = os.getenv('MENPO_DATA', '~/datasets/ibug/menpo_2017_trainset')
 
 class Menpo(Base):
     """Class definition for Menpo dataset"""
@@ -82,25 +82,25 @@ if __name__ == "__main__":
 
     detector = Menpo(
         cascade="haarcascade_frontalface_alt.xml",
-        results_file="menpo_alt.csv")
+        results_file="menpo_front_alt.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = Menpo(
         cascade="haarcascade_frontalface_alt2.xml",
-        results_file="menpo_alt2.csv")
+        results_file="menpo_front_alt2.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = Menpo(
         cascade="haarcascade_profileface.xml",
-        results_file="menpo_profileface.csv")
+        results_file="menpo_front_profileface.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = Menpo(
         cascade=None,
-        results_file="menpo_hog.csv")
+        results_file="menpo_front_hog.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 

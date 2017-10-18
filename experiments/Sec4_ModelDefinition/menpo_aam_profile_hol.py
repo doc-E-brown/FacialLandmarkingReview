@@ -18,7 +18,7 @@ from functools import partial
 
 # Correct normalisation using face diagonal
 aam.compute_errors = partial(aam.compute_errors, pt1=19, pt2=28)
-model = MenpoAAM('~/predPap-ben/datasets/ibug/menpo_2017_trainset',
+model = MenpoAAM(
     filename='menpo_aam_profile_hol', profile=True)
 model.load_data()
 

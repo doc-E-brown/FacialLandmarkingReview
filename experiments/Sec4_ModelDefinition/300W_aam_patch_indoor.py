@@ -7,18 +7,19 @@
 
 
 
-
-
 :author: Ben Johnston
 :license: 3-Clause BSD
 
 """
 
 # Imports
+import os
 from aam import AAM
 from menpofit.aam import PatchAAM
 
-model = AAM('/home/bjoh3944/predPap-ben/datasets/ibug/300W/01_Indoor',
+IBUG_DATA_FOLDER = os.getenv('IBUG_DATA', '~/datasets/ibug/300W')
+
+model = AAM(os.path.join(IBUG_DATA_FOLDER, '01_Indoor'),
             model_type=PatchAAM,
             basename='300W_aam_patch_indoor')
 model.load_data()

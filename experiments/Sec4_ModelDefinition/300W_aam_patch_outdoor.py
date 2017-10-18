@@ -6,19 +6,19 @@
 300W dataset holistic AAM
 
 
-
-
-
 :author: Ben Johnston
 :license: 3-Clause BSD
 
 """
 
 # Imports
+import os
 from aam import AAM
 from menpofit.aam import PatchAAM
 
-model = AAM('/home/bjoh3944/predPap-ben/datasets/ibug/300W/02_Outdoor',
+IBUG_DATA_FOLDER = os.getenv('IBUG_DATA', '~/datasets/ibug/300W')
+
+model = AAM(os.path.join(IBUG_DATA_FOLDER, '02_Outdoor'),
             model_type=PatchAAM,
             basename='300W_aam_patch_outdoor')
 model.load_data()

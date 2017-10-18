@@ -24,7 +24,7 @@ class HELEN(Base):
 
     def __init__(self,
         data_folder=HELEN_DATA_FOLDER,
-        pts_ext='.txt',
+        pts_ext='.pts',
         photo_ext='.jpg',
         results_file='helen_detection.csv',
         write_photos=False,
@@ -56,15 +56,15 @@ class HELEN(Base):
         and return a numpy array of points"""
 
         with open(filename, 'r') as f:
-            basename = f.readline().strip()
             pts = f.read()
 
+        pts = pts[pts.find("{") + 2:-2]
         pts = pts.split('\n')
-        pts.pop(-1)
-        pts = [pt.split(',') for pt in pts]
+        pts = [pt.split(' ') for pt in pts]
         pts = [[float(pt[0]), float(pt[1])] for pt in pts]
 
         pts = np.array(pts, dtype='int')
+        basename, _ = os.path.splitext(os.path.basename(filename))
 
         return basename, pts
 
@@ -102,7 +102,9 @@ if __name__ == "__main__":
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
-
-
+    print("{:<40}{:^10}{:^40}{:^10}".format(
+        'Face Detector', '# images',
+        'Detection rate (%)', 'False pos'))
     for result in results:
-        print("%s:%d\t%0.2f\t%d" % (result[0], result[1][0], result[1][1], result[1][2]))
+        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0], 
+            result[1][0], result[1][1], result[1][2]))

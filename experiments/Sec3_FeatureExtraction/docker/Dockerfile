@@ -1,7 +1,7 @@
 FROM ubuntu:latest
 MAINTAINER Ben Johnston <ben.johnston@sydney.edu.au>
 
-LABEL Description="" Vendor="University of Sydney" Version="0.1"
+LABEL Description="Facial Landmarking Review Paper Sec3" Vendor="University of Sydney" Version="0.1"
 
 # Replace mirror for quicker repo access
 RUN sed -i "s/archive.ubuntu.com/au.archive.ubuntu.com/g" /etc/apt/sources.list
@@ -10,11 +10,7 @@ RUN sed -i "s/archive.ubuntu.com/au.archive.ubuntu.com/g" /etc/apt/sources.list
 RUN apt-get -y update
 RUN apt-get install -y python3 python3-pip python3-dev wget python3-tk x11vnc xvfb
 RUN apt-get install -y libboost-python-dev build-essential cmake libgtk2.0-dev
-RUN apt-get install -y python3-numpy git
-
-# Localisation configuration
-#RUN locale-gen en_US.UTF-8
-#ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
+RUN apt-get install -y python3-numpy git libssl-dev
 
 RUN mkdir -p /etc/sudoers.d/
 RUN touch /etc/sudoers.d/doc-E-brown
@@ -54,14 +50,20 @@ RUN cd /home/doc-E-brown && \
 # Create the virtualenvs 
 RUN cd /home/doc-E-brown/FacialLandmarkingReview/experiments && \
     bash -c "source /usr/local/bin/virtualenvwrapper.sh && mkvirtualenv Sec3_FeatureExtraction" && \
-    bash -c "source /usr/local/bin/virtualenvwrapper.sh && mkvirtualenv -p $(which python) Sec4_FeatureExtraction" && \
-    bash -c "source /usr/local/bin/virtualenvwrapper.sh && workon Sec3_FeatureExtraction && pip install dlib scipy pillow numpy" && \
+    bash -c "source /usr/local/bin/virtualenvwrapper.sh && workon Sec3_FeatureExtraction && pip install dlib scipy pillow numpy pandas" && \
     bash -c "source /usr/local/bin/virtualenvwrapper.sh && workon Sec3_FeatureExtraction && add2virtualenv /opencv-3.3.0/build/lib/python3"
 
+# Setup environment variables
 RUN mkdir -p /home/doc-E-brown/datasets
-ENV DATASETS=/home/doc-E-brown/datasets
-ENV BIOID_DATA=$DATASETS/BioID
-ENV MUCT_DATA=$DATASETS/MUCT
-ENV MUCT_DATA=$DATASETS/HELEN
+ENV DATASETS /home/doc-E-brown/datasets
+ENV BIOID_DATA $DATASETS/BioID
+ENV MUCT_DATA $DATASETS/MUCT
+ENV HELEN_DATA $DATASETS/HELEN
+ENV IBUG_DATA $DATASETS/ibug/300W/
+ENV MENPO_DATA $DATASETS/ibug/menpo_2017_trainset
 
 ENV HOME /home/doc-E-brown
+
+ENV HOME /home/doc-E-brown
+RUN echo 'cd $HOME' >> $HOME/.bashrc
+ENTRYPOINT bash

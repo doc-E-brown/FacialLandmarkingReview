@@ -16,11 +16,13 @@ from aam import AAM
 from menpofit.aam import HolisticAAM, PatchAAM
 from sklearn.model_selection import train_test_split
 
+MUCT_DATA_FOLDER = os.getenv('MUCT_DATA', '~/datasets/muct')
+
 
 class MuctAAM(AAM):
     """ MUCT AAM class """
 
-    def __init__(self, path_to_data, model_type=HolisticAAM, basename='muct_aam', verbose=True):
+    def __init__(self, path_to_data=MUCT_DATA_FOLDER, model_type=HolisticAAM, basename='muct_aam', verbose=True):
         super(MuctAAM, self).__init__(
             path_to_data, model_type, basename, verbose)
 
@@ -67,14 +69,3 @@ class MuctAAM(AAM):
             # Due to large training set size use generators for better memory 
             # efficiency
             yield i
-
-if __name__ == "__main__":
-
-    #a = MuctAAM('~/datasets/muct/muct-images')
-    a = MuctAAM('~/datasets/muct/muct-images', PatchAAM, 'muct_patch.txt')
-    a.load_data()
-    a.train_model(diagonal=None,batch_size=256, max_shape_components=None, max_appearance_components=None)
-    #a.train_model(diagonal=None,max_shape_components=None, max_appearance_components=None)
-    a.fit_model()
-    a.predict_test_set()
-    a.generate_cdf()

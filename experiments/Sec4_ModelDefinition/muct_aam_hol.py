@@ -12,9 +12,12 @@
 """
 
 # Imports
+import os
 from muctAAM import MuctAAM
 
-model = MuctAAM('/home/bjoh3944/predPap-ben/datasets/muct/muct-images',
+MUCT_DATA_FOLDER = os.getenv('MUCT_DATA', '~/datasets/muct')
+
+model = MuctAAM(os.path.join(MUCT_DATA_FOLDER, 'muct-images'),
     basename='muct_aam_hol')
 model.load_data()
 model.train_model(diagonal=None,max_shape_components=None, max_appearance_components=None)
