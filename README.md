@@ -78,7 +78,13 @@ docker run --rm -v -v /path/to/data/folder:/home/doc-E-brown/datasets -ti debrow
 ```
 
 The above commands start the docker containers interactively into bash with the corresponding virtual environment
-already activated.  If you haven't already downloaded the required datasets you will need to run `~/FacialLandmarkingReview/experiments/download_data.py` you can use the `--help` flag for help.  Once the data is downloaded, simply cd into the appropriate folder `cd ~/FacialLandmarkingReview/experiments/Sec2_DatasetSelection`, `cd ~/FacialLandmarkingReview/experiments/Sec3_FeatureExtraction` or `cd ~/FacialLandmarkingReview/experiments/Sec3_FeatureExtraction` and execute the desired python script. 
+already activated.  If you haven't already downloaded the required datasets you will need to run `~/FacialLandmarkingReview/experiments/download_data.py` you can use the `--help` flag for help.  Once the data is downloaded, simply cd into the appropriate folder 
+```bash
+cd ~/FacialLandmarkingReview/experiments/Sec2_DatasetSelection # or
+cd ~/FacialLandmarkingReview/experiments/Sec3_FeatureExtraction # or
+cd ~/FacialLandmarkingReview/experiments/Sec3_FeatureExtraction
+```
+and execute the desired python script. 
 
 ### via Source
 If you would like to execute the source code directly without the docker images you can download the source code from
