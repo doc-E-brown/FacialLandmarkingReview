@@ -63,7 +63,6 @@ ENV IBUG_DATA $DATASETS/ibug/300W/
 ENV MENPO_DATA $DATASETS/ibug/menpo_2017_trainset
 
 ENV HOME /home/doc-E-brown
-
-ENV HOME /home/doc-E-brown
 RUN echo 'cd $HOME' >> $HOME/.bashrc
+RUN echo 'source activate FacialLandmarkingReview' >> $HOME/.bashrc
 ENTRYPOINT bash
