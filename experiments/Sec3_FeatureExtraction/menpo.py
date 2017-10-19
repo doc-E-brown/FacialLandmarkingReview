@@ -14,27 +14,35 @@ menpo face detection
 
 # Imports
 import os
-import numpy as np 
+import numpy as np
 import pandas as pd
 from scipy.misc import imread
 from _base import Base
 
-MENPO_DATA_FOLDER = os.getenv('MENPO_DATA', '~/datasets/IBUG/menpo_2017_trainset')
+MENPO_DATA_FOLDER = os.getenv('MENPO_DATA',
+                              '~/datasets/IBUG/menpo_2017_trainset')
+
 
 class Menpo(Base):
     """Class definition for Menpo dataset"""
 
     def __init__(self,
-        data_folder=MENPO_DATA_FOLDER,
-        pts_ext='.pts',
-        photo_ext='.jpg',
-        results_file='menpo_detection.csv',
-        write_photos=False,
-        cascade='haarcascade_frontalface_default.xml',
-        profile_photo=False,
-        ):
+                 data_folder=MENPO_DATA_FOLDER,
+                 pts_ext='.pts',
+                 photo_ext='.jpg',
+                 results_file='menpo_detection.csv',
+                 write_photos=False,
+                 cascade='haarcascade_frontalface_default.xml',
+                 profile_photo=False,
+                 ):
 
-        super().__init__(data_folder, pts_ext, photo_ext, results_file, write_photos, cascade)
+        super().__init__(
+            data_folder,
+            pts_ext,
+            photo_ext,
+            results_file,
+            write_photos,
+            cascade)
 
         self.data_dirs = [data_folder]
         self.profile_photo = profile_photo
@@ -57,7 +65,7 @@ class Menpo(Base):
 
             # Check the number of landmarks
             # Facial has 68, profile 29
-            pts = self.load_pts("%s%s" % (basename, self.pts_ext)) 
+            pts = self.load_pts("%s%s" % (basename, self.pts_ext))
             if (not self.profile_photo and pts.shape[0] == 68):
                 yield basename
             elif (self.profile_photo and pts.shape[0] == 39):
@@ -108,5 +116,7 @@ if __name__ == "__main__":
         'Face Detector', '# images',
         'Detection rate (%)', 'False pos'))
     for result in results:
-        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0], 
-            result[1][0], result[1][1], result[1][2]))
+        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0],
+                                                   result[1][0],
+                                                   result[1][1],
+                                                   result[1][2]))

@@ -22,4 +22,3 @@ model.train_model()
 model.fit_model()
 model.predict_test_set()
 model.generate_cdf()
-

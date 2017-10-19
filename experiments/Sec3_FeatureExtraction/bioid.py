@@ -14,27 +14,35 @@ BioID face detection
 
 # Imports
 import os
-import numpy as np 
+import numpy as np
 from _base import Base
 
 BIOID_DATA_FOLDER = os.getenv("BIOID_DATA", '~/datasets/BioID')
+
 
 class BioId(Base):
     """Class definition for BioId dataset"""
 
     def __init__(self,
-        data_folder=BIOID_DATA_FOLDER,
-        pts_ext='.pts',
-        photo_ext='.pgm',
-        results_file='bioid_default.csv',
-        write_photos=False,
-        cascade='haarcascade_frontalface_default.xml'):
+                 data_folder=BIOID_DATA_FOLDER,
+                 pts_ext='.pts',
+                 photo_ext='.pgm',
+                 results_file='bioid_default.csv',
+                 write_photos=False,
+                 cascade='haarcascade_frontalface_default.xml'):
         """Constructor"""
 
-        super().__init__(data_folder, pts_ext, photo_ext, results_file, write_photos, cascade)
+        super().__init__(
+            data_folder,
+            pts_ext,
+            photo_ext,
+            results_file,
+            write_photos,
+            cascade)
 
         self.data_dirs = \
-            [os.path.join(data_folder, folder) for folder in ['faces', 'points_20']]
+            [os.path.join(data_folder, folder)
+             for folder in ['faces', 'points_20']]
 
     def load_sample_names(self):
         """A generator which yields the basenames of the samples
@@ -48,11 +56,11 @@ class BioId(Base):
             # Only yield for photo extensions to avoid duplicates
             if ext != self.photo_ext:
                 continue
-            
+
             yield os.path.join(self.data_dirs[1], basename)
 
     def load_pts(self, filename):
-        """Load landmark points from a .pts file 
+        """Load landmark points from a .pts file
         and return a numpy array of points"""
 
         folder = os.path.dirname(filename)
@@ -64,7 +72,7 @@ class BioId(Base):
             data = f.read()
 
         # Cut out coordinates
-        data = data[data.find('{')+2:-3]
+        data = data[data.find('{') + 2:-3]
 
         # Put data into a 2D numpy array and return
         data = np.fromstring(data, sep='\n').reshape((-1, 2))
@@ -72,6 +80,7 @@ class BioId(Base):
         data = np.asarray(data, dtype='int')
 
         return data
+
 
 if __name__ == "__main__":
 
@@ -82,22 +91,22 @@ if __name__ == "__main__":
     results.append((detector.cascade, result))
 
     detector = BioId(cascade="haarcascade_frontalface_alt.xml",
-        results_file="bioid_alt.csv")
+                     results_file="bioid_alt.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = BioId(cascade="haarcascade_frontalface_alt2.xml",
-        results_file="bioid_alt2.csv")
+                     results_file="bioid_alt2.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = BioId(cascade="haarcascade_profileface.xml",
-        results_file="bioid_profile.csv")
+                     results_file="bioid_profile.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = BioId(cascade=None,
-        results_file="bioid_hog.csv")
+                     results_file="bioid_hog.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
@@ -105,5 +114,7 @@ if __name__ == "__main__":
         'Face Detector', '# images',
         'Detection rate (%)', 'False pos'))
     for result in results:
-        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0], 
-            result[1][0], result[1][1], result[1][2]))
+        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0],
+                                                   result[1][0],
+                                                   result[1][1],
+                                                   result[1][2]))

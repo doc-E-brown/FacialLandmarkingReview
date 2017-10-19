@@ -22,11 +22,12 @@ from scipy.misc import imread
 from PIL import Image, ImageDraw
 from functools import partial
 
+
 def compute_overlap(rect1, ref):
     """Compute the percentage overlap of rect1 to ref"""
     x1, y1, w1, h1 = rect1
     x2, y2 = x1 + w1, y1 + h1
-    x3, y3, w2, h2 = ref 
+    x3, y3, w2, h2 = ref
     x4, y4 = x3 + w2, y3 + h2
 
     # Generate array of zeros for overlap
@@ -40,8 +41,9 @@ def compute_overlap(rect1, ref):
     temp[y3 - min_y:y4 - min_y, x3 - min_x:x4 - min_x] += 1
     temp[y1 - min_y:y2 - min_y, x1 - min_x:x2 - min_x] += 2
 
-    overlap = temp[np.where(temp==3)]
-    return overlap.size / (w2 * h2) 
+    overlap = temp[np.where(temp == 3)]
+    return overlap.size / (w2 * h2)
+
 
 def face_detect_hog(image=None):
     """Detect a face in an image using the dlib implementation of
@@ -55,11 +57,12 @@ def face_detect_hog(image=None):
     # Viola-Jones
     rects = []
     for det in detected:
-        rects.append([det.left(), det.top(), 
+        rects.append([det.left(), det.top(),
                       det.right() - det.left(),
                       det.bottom() - det.top()])
 
     return rects
+
 
 def face_detect_viola(cascade=None, image=None):
     """Detect a face in an image using opencv implementation of
@@ -73,36 +76,36 @@ class Base(object):
     """Base face detector class"""
 
     def __init__(self,
-        data_folder,
-        pts_ext='.pts',
-        photo_ext='.png',
-        results_file='base_detection.csv',
-        write_photos=True,
-        cascade='haarcascade_frontalface_default.xml',
-        ):
+                 data_folder,
+                 pts_ext='.pts',
+                 photo_ext='.png',
+                 results_file='base_detection.csv',
+                 write_photos=True,
+                 cascade='haarcascade_frontalface_default.xml',
+                 ):
         """__init__"""
 
         self.data_dirs = [data_folder]
-        self.pts_ext = pts_ext 
+        self.pts_ext = pts_ext
         self.photo_ext = photo_ext
         self.results_file = results_file
-        self.cascade = cascade 
+        self.cascade = cascade
         self.write_photos = write_photos
 
         if cascade is not None:
-            self.detector = partial(face_detect_viola, cascade=self.cascade) 
+            self.detector = partial(face_detect_viola, cascade=self.cascade)
         else:
-            self.detector = face_detect_hog 
+            self.detector = face_detect_hog
             self.cascade = "hog"
 
     def load_pts(self, filename):
-        """Load landmark points from a .pts file 
+        """Load landmark points from a .pts file
         and return a numpy array of points"""
 
         with open(filename, 'r') as f:
             data = f.read()
 
-        # Extract only the coordinates_lines 
+        # Extract only the coordinates_lines
         data = data[data.find('{') + 1: data.find('}')]
 
         # Put data into a 2D numpy array and return
@@ -125,7 +128,7 @@ class Base(object):
                 # Only yield for coords files to avoid duplicates
                 if ext != self.pts_ext:
                     continue
-                
+
                 yield os.path.join(folder, basename)
 
     def extract_bbox(self, pts):
@@ -147,7 +150,7 @@ class Base(object):
 
         bboxes = {}
         for basename in self.load_sample_names():
-            pts = self.load_pts("%s%s" % (basename, self.pts_ext)) 
+            pts = self.load_pts("%s%s" % (basename, self.pts_ext))
             bbox = self.extract_bbox(pts)
             basename = os.path.basename(basename)
             bboxes[basename] = bbox
@@ -164,7 +167,7 @@ class Base(object):
             for box in bboxes:
                 name, box = box, bboxes[box]
                 f.write("%s,%0.2f,%0.2f,%0.2f,%0.2f\n" %
-                    (name, box[0], box[1], box[2], box[3]))
+                        (name, box[0], box[1], box[2], box[3]))
 
     def load_images(self):
         """Open an image in the dataset"""
@@ -174,7 +177,7 @@ class Base(object):
 
                 basename, ext = os.path.splitext(filename)
 
-                # Only yield for image files 
+                # Only yield for image files
                 if ext != self.photo_ext:
                     continue
 
@@ -200,19 +203,19 @@ class Base(object):
 
             for rect in rects:
                 cv2.rectangle(image,
-                    (rect[0], rect[1]),
-                    (rect[0] + rect[2], rect[1] + rect[3]),
-                    (0, 255, 0),
-                    4
-                    )
+                              (rect[0], rect[1]),
+                              (rect[0] + rect[2], rect[1] + rect[3]),
+                              (0, 255, 0),
+                              4
+                              )
 
             gtruth = bboxes[basename]
             cv2.rectangle(image,
-                (gtruth[0], gtruth[1]),
-                (gtruth[0] + gtruth[2], gtruth[1] + gtruth[3]),
-                (0, 0, 255),
-                4
-                )
+                          (gtruth[0], gtruth[1]),
+                          (gtruth[0] + gtruth[2], gtruth[1] + gtruth[3]),
+                          (0, 0, 255),
+                          4
+                          )
 
             if self.write_photos:
                 cv2.imwrite("%s.jpg" % basename, image)
@@ -227,11 +230,10 @@ class Base(object):
             for basename in detection_dict:
                 f.write("%s, %d, %d\n" % (
                     basename,
-                    detection_dict[basename], 
+                    detection_dict[basename],
                     false_pos_dict[basename]))
 
         detection_rate = 100 * (float(detection) / float(sample_size))
-        #print("Detection Rate: %0.2f %%" % detection_rate)
         return sample_size, detection_rate, false_pos
 
     def is_face_detected(self, rects, bbox):

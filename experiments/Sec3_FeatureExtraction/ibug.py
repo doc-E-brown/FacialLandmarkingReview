@@ -18,25 +18,27 @@ from _base import Base
 
 IBUG_DATA_FOLDER = os.getenv('IBUG_DATA', '~/datasets/IBUG/300W')
 
+
 class ibug(Base):
     """ibug 300W face detector class"""
 
     def __init__(self,
-        data_folder=IBUG_DATA_FOLDER,
-        pts_ext='.pts',
-        photo_ext='.png',
-        results_file='ibug_detection.csv',
-        write_photos=False,
-        cascade='haarcascade_frontalface_default.xml',
-        ):
+                 data_folder=IBUG_DATA_FOLDER,
+                 pts_ext='.pts',
+                 photo_ext='.png',
+                 results_file='ibug_detection.csv',
+                 write_photos=False,
+                 cascade='haarcascade_frontalface_default.xml',
+                 ):
         """__init__"""
 
         super().__init__(data_folder, pts_ext, photo_ext,
-            results_file, write_photos, cascade)
+                         results_file, write_photos, cascade)
 
         self.data_dirs = \
             [os.path.join(data_folder, folder)
-            for folder in ['01_Indoor', '02_Outdoor']]
+             for folder in ['01_Indoor', '02_Outdoor']]
+
 
 if __name__ == "__main__":
     results = []
@@ -74,5 +76,7 @@ if __name__ == "__main__":
         'Face Detector', '# images',
         'Detection rate (%)', 'False pos'))
     for result in results:
-        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0], 
-            result[1][0], result[1][1], result[1][2]))
+        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0],
+                                                   result[1][0],
+                                                   result[1][1],
+                                                   result[1][2]))

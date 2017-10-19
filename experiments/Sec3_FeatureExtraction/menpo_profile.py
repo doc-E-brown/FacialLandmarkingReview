@@ -25,26 +25,26 @@ if __name__ == "__main__":
     results.append((detector.cascade, result))
 
     detector = Menpo(profile_photo=True,
-        cascade="haarcascade_frontalface_alt.xml",
-        results_file="menpo_profile_alt.csv")
+                     cascade="haarcascade_frontalface_alt.xml",
+                     results_file="menpo_profile_alt.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = Menpo(profile_photo=True,
-        cascade="haarcascade_frontalface_alt2.xml",
-        results_file="menpo_profile_alt2.csv")
+                     cascade="haarcascade_frontalface_alt2.xml",
+                     results_file="menpo_profile_alt2.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = Menpo(profile_photo=True,
-        cascade="haarcascade_profileface.xml",
-        results_file="menpo_profile_profileface.csv")
+                     cascade="haarcascade_profileface.xml",
+                     results_file="menpo_profile_profileface.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
     detector = Menpo(profile_photo=True,
-        cascade=None,
-        results_file="menpo_profile_hog.csv")
+                     cascade=None,
+                     results_file="menpo_profile_hog.csv")
     result = detector.detect_faces(bboxes)
     results.append((detector.cascade, result))
 
@@ -52,5 +52,7 @@ if __name__ == "__main__":
         'Face Detector', '# images',
         'Detection rate (%)', 'False pos'))
     for result in results:
-        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0], 
-            result[1][0], result[1][1], result[1][2]))
+        print("{:<40}{:^10}{:^40.2f}{:^10}".format(result[0],
+                                                   result[1][0],
+                                                   result[1][1],
+                                                   result[1][2]))
